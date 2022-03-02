@@ -1,0 +1,13 @@
+server:
+  port: 8010
+
+spring:
+  application:
+    name: mapdata-service
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://127.0.0.1:8787/eureka}

@@ -1,0 +1,40 @@
+server:
+  port: 8030
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user/?(?<segment>.*), /$\{segment}
+            - CustomAuthFilter
+
+        - id: statdata-service
+          uri: lb://STATDATA-SERVICE
+          predicates:
+            - Path=/statdata/**
+          filters:
+            - RewritePath=/statdata/?(?<segment>.*), /$\{segment}
+            - CustomAuthFilter
+
+        - id: mapdata-service
+          uri: lb://MAPDATA-SERVICE
+          predicates:
+            - Path=/mapdata/**
+          filters:
+            - RewritePath=/mapdata/?(?<segment>.*), /$\{segment}
+            - CustomAuthFilter
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://127.0.0.1:8787/eureka}
+
