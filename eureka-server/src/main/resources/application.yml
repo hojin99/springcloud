@@ -1,16 +1,11 @@
 server:
   port: 8787
 
-#eureka:
-#  client:
-#    register-with-eureka: false # 유레카 서비스에 자신을 등록하지 않음 (즉, 클라이어언트로 사용 안함)
-#    fetch-registry : false # 유레카 서비스가 시작할 때 레지스트리 정보를 로컬에 저장하지 않음 (즉, 클라이어언트로 사용 안함)
-
 spring:
   application:
-    name: discover-service
+    name: discover-service # eureka에서 사용하는 이름
 
 eureka:
   client:
-    fetch-registry: false
-    register-with-eureka: false
+    fetch-registry: false # 유레카 서비스에 자신을 주기적으로 등록하지 않음 (즉, 클라이어언트로 사용 안함)
+    register-with-eureka: false # 유레카 서비스가 시작할 때 레지스트리 정보를 로컬에 저장하지 않음 (즉, 클라이어언트로 사용 안함)
