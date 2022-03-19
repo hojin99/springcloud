@@ -6,30 +6,43 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      default-filters: # Global Filter 사용
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway GlobalFilter
+            preLogger: true
+            postLogger: true
       routes:
         - id: user-service # eureka server에 등록된 spring.application.name
-          uri: lb://USER-SERVICE # user-service를 load balancing
+          uri: lb://USER-SERVICE # 포워딩할 uri : user-service를 load balancing (eureak 서버 내 이름 기반)
           predicates:
             - Path=/user/**  # 해당 패턴에 대해서
           filters:
             - RewritePath=/user/?(?<segment>.*), /$\{segment} # URL을 변경
             - CustomAuthFilter # 해당 필터 클래스로 필터 실행
-
         - id: statdata-service
           uri: lb://STATDATA-SERVICE
           predicates:
             - Path=/statdata/**
           filters:
+            - AddRequestHeader=sc_req,statdata # 기본 필터로 필터 실행
+            - AddResponseHeader=sc_res,statdata
             - RewritePath=/statdata/?(?<segment>.*), /$\{segment}
             - CustomAuthFilter
-
         - id: mapdata-service
           uri: lb://MAPDATA-SERVICE
           predicates:
             - Path=/mapdata/**
           filters:
+            - AddRequestHeader=sc_req,mapdata
+            - AddResponseHeader=sc_res,mapdata
             - RewritePath=/mapdata/?(?<segment>.*), /$\{segment}
-            - CustomAuthFilter
+            - name: CustomAuthFilter
+            - name: LoggingFilter # 커스텀 필터에 args를 사용 시 name 필요
+              args:
+                baseMessage: Spring Cloud Gateway LoggingFilter
+                preLogger: true
+                postLogger: true
 
 eureka:
   client:

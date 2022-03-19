@@ -25,9 +25,12 @@ public class CustomAuthFilter extends AbstractGatewayFilterFactory<CustomAuthFil
     }
 
     public GatewayFilter apply(Config config) {
+        // Pre Filter
         return ((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
+            ServerHttpResponse response = exchange.getResponse();
 
+            log.info("Custom Pre Filter: jwt auth check!");
             if(!request.getHeaders().containsKey("Authorization")) {
                 return handleUnAuthorized(exchange);
             }
@@ -45,7 +48,11 @@ public class CustomAuthFilter extends AbstractGatewayFilterFactory<CustomAuthFil
                 log.info(claims.getSubject());
             }
 
-            return chain.filter(exchange);
+            // Post Filter
+            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+
+                log.info("Custom Post Filter: response code -> {}", response.getStatusCode());
+            }));
         });
 
     }

@@ -12,13 +12,13 @@
 포트 : 8030
 
 * user-service - 사용자 정보 서비스 (api-service, config-client, eureka-client, hystrix, feign-client)  
-포트 : 8000
+포트 : random
 
 * statdata-service - 통계 정보 서비스 (api-service, config-client, eureka-client, hystrix, feign-client)  
-포트 : 8020, 8021
+포트 : random
 
 * mapdata-service - map 정보 서비스 (api-service, config-client, eureka-client, hystrix, feign-client)  
-포트 : 8010, 8011
+포트 : random
 
 ## 실행
 * 각 서비스 별 spring boot application 실행 방법으로 실행 (단, Config Server, Eureka Server 먼저 실행)   
@@ -33,6 +33,11 @@
 
 
 ## 참조
+eureka server/client : https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/  
+spring cloud gateway : https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/  
+spring cloud config : https://docs.spring.io/spring-cloud-config/docs/current/reference/html/  
+spring cloud openfeign : https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/  
+spring for apache kafka : https://docs.spring.io/spring-kafka/docs/current/reference/html/  
 
 * eureka-server
     - @EnableEurekaServer 추가  
@@ -69,41 +74,53 @@ eureka:
 ```
 
 * spring cloud gateway
-    - application.yml을 아래와 같이 route 설정  
+    - application.yml을 아래와 같이 route 설정    
     - CustomAuthFilter 구현  
+    - GlobalFilter 구현  
+    - Eureka에 등록된 서비스이름을 이용해서 로드밸런싱   
 ```
-server:
-  port: 8030
-
 spring:
   application:
     name: gateway-service
   cloud:
     gateway:
+      default-filters: # Global Filter 사용
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway GlobalFilter
+            preLogger: true
+            postLogger: true
       routes:
         - id: user-service # eureka server에 등록된 spring.application.name
-          uri: lb://USER-SERVICE # user-service를 load balancing
+          uri: lb://USER-SERVICE # 포워딩할 uri : user-service를 load balancing (eureak 서버 내 이름 기반)
           predicates:
             - Path=/user/**  # 해당 패턴에 대해서
           filters:
-            - RewritePath=/user/?(?<segment>.*), /$\{segment}  # URL을 변경
+            - RewritePath=/user/?(?<segment>.*), /$\{segment} # URL을 변경
             - CustomAuthFilter # 해당 필터 클래스로 필터 실행
-
         - id: statdata-service
           uri: lb://STATDATA-SERVICE
           predicates:
             - Path=/statdata/**
           filters:
+            - AddRequestHeader=sc_req,statdata # 기본 필터로 필터 실행
+            - AddResponseHeader=sc_res,statdata
             - RewritePath=/statdata/?(?<segment>.*), /$\{segment}
             - CustomAuthFilter
-
         - id: mapdata-service
           uri: lb://MAPDATA-SERVICE
           predicates:
             - Path=/mapdata/**
           filters:
+            - AddRequestHeader=sc_req,mapdata
+            - AddResponseHeader=sc_res,mapdata
             - RewritePath=/mapdata/?(?<segment>.*), /$\{segment}
-            - CustomAuthFilter
+            - name: CustomAuthFilter
+            - name: LoggingFilter # 커스텀 필터에 args를 사용 시 name 필요
+              args:
+                baseMessage: Spring Cloud Gateway LoggingFilter
+                preLogger: true
+                postLogger: true
 ```
 
 * Feign Client  

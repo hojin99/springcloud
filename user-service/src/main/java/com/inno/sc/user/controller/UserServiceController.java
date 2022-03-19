@@ -35,11 +35,14 @@ public class UserServiceController {
 
     @GetMapping("/api/hello-map")
     public String helloMapdata() {
+
+
         return mapClient.hello();
     }
 
     @GetMapping("/api/hello-stat")
     public String helloStatdata() {
+
         return statClient.hello();
     }
 
