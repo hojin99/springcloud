@@ -37,6 +37,7 @@ eureka server/client : https://docs.spring.io/spring-cloud-netflix/docs/current/
 spring cloud gateway : https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/  
 spring cloud config : https://docs.spring.io/spring-cloud-config/docs/current/reference/html/  
 spring cloud openfeign : https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/  
+spring cloud bus : https://docs.spring.io/spring-cloud-bus/docs/current/reference/html/  
 spring for apache kafka : https://docs.spring.io/spring-kafka/docs/current/reference/html/  
 
 * eureka-server
