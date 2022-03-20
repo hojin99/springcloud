@@ -11,6 +11,7 @@
 		<module>statdata-service</module>
         <module>gateway-service</module>
         <module>jwt-encoder</module>
+		<module>ec-user-service</module>
 		<module>website1</module>
 	</modules>
 	<parent>
