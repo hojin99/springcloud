@@ -43,6 +43,18 @@ spring:
                 baseMessage: Spring Cloud Gateway LoggingFilter
                 preLogger: true
                 postLogger: true
+        - id: ec-user-service # eureka server에 등록된 spring.application.name
+          uri: lb://EC-USER-SERVICE # 포워딩할 uri : user-service를 load balancing (eureak 서버 내 이름 기반)
+          predicates:
+            - Path=/user-service/**  # 해당 패턴에 대해서
+          filters:
+            - RewritePath=/user-service/?(?<segment>.*), /$\{segment} # URL을 변경
+        - id: ec-catalog-service # eureka server에 등록된 spring.application.name
+          uri: lb://EC-CATALOG-SERVICE # 포워딩할 uri : user-service를 load balancing (eureak 서버 내 이름 기반)
+          predicates:
+            - Path=/catalog-service/**  # 해당 패턴에 대해서
+          filters:
+            - RewritePath=/catalog-service/?(?<segment>.*), /$\{segment} # URL을 변경
 
 eureka:
   client:

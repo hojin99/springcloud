@@ -13,7 +13,8 @@
         <module>jwt-encoder</module>
 		<module>ec-user-service</module>
 		<module>website1</module>
-	</modules>
+        <module>ec-catalogs-service</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
