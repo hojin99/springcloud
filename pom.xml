@@ -14,6 +14,7 @@
 		<module>ec-user-service</module>
 		<module>website1</module>
         <module>ec-catalogs-service</module>
+        <module>ec-order-service</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
