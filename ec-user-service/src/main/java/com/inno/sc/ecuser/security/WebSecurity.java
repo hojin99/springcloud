@@ -25,12 +25,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    // 권한 처리
+    // 인증, 권한 처리
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 //        http.authorizeRequests().antMatchers("/users/**").permitAll();
-
         http.authorizeRequests().antMatchers("/**")
                 .hasIpAddress("")
                 .and()
@@ -41,7 +40,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager(), userService, env);
-//        authenticationFilter.setAuthenticationManager(authenticationManager());
 
         return authenticationFilter;
     }
