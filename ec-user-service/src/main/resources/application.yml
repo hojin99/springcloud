@@ -26,3 +26,7 @@ eureka:
 greeting:
   message: Welcome to the Simple E-Commerce.
 
+logging:
+  level:
+    com.inno.sc.ecuser : DEBUG
+
