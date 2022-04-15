@@ -6,7 +6,7 @@
 포트 : 8787
 
 * config-server - configuration 정보를 다른 서버들에게 제공하는 역할 (중앙 관리)  
-포트 : 8040
+포트 : 8888
 
 * gateway-server - api gateway 역할을 하면서, 모든 요청을 로깅하고, 인증을 담당 (config-client, eureka-client, hystrix, feign-client)  
 포트 : 8030
