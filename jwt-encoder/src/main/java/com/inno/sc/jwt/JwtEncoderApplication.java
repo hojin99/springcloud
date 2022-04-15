@@ -37,6 +37,7 @@ public class JwtEncoderApplication implements CommandLineRunner {
 //        log.info(secretString);
 
         // jwt 생성
+        // https://jwt.io/
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         String jws = Jwts.builder()
                 .setIssuer("inno")

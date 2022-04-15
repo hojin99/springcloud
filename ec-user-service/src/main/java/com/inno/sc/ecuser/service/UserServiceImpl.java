@@ -30,6 +30,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByEmail(username);
+
+        // 사용자가 DB에 존재하지 않을 경우
+        if(userEntity == null)
+            throw new UsernameNotFoundException(username);
+
+        // 사용자가 DB에 존재할 때
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(),
+                true,
+                true,
+                true,
+                true,
+                new ArrayList<>());
+    }
+
+    @Override
     public UserDto createUser(UserDto userDto) {
         // id 생성
         userDto.setUserId(UUID.randomUUID().toString());
@@ -66,22 +83,6 @@ public class UserServiceImpl implements UserService {
     }
 
     // UserDetailsService에 정의 된 메소드로 스프링 시큐리티 인증 사용 시 필요
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByEmail(username);
-
-        // 사용자가 DB에 존재하지 않을 경우
-        if(userEntity == null)
-            throw new UsernameNotFoundException(username);
-
-        // 사용자가 DB에 존재할 때
-        return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(),
-                true,
-                true,
-                true,
-                true,
-                new ArrayList<>());
-    }
 
     @Override
     public UserDto getUserDetailsByEmail(String email) {

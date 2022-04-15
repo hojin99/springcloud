@@ -1,6 +1,7 @@
 package com.inno.sc.ecuser.security;
 
 import com.inno.sc.ecuser.service.UserService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,9 +30,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-//        http.authorizeRequests().antMatchers("/users/**").permitAll();
-        http.authorizeRequests().antMatchers("/**")
-                .hasIpAddress("")
+
+        http.authorizeRequests()
+                .antMatchers("/h2-console/**","/health_check","/welcome","/login","/users/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .addFilter(getAuthenticationFilter());
 

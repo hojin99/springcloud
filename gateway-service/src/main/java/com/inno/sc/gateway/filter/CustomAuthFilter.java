@@ -44,8 +44,12 @@ public class CustomAuthFilter extends AbstractGatewayFilterFactory<CustomAuthFil
                 String jws = tokenString.substring(7);
                 log.info(jws);
 
-                Claims claims = JwtUtil.validateJwt(jws);
-                log.info(claims.getSubject());
+                try {
+                    Claims claims = JwtUtil.validateJwt(jws);
+                    log.info(claims.getSubject());
+                } catch(Exception ex) {
+                    handleUnAuthorized(exchange);
+                }
             }
 
             // Post Filter
@@ -57,6 +61,7 @@ public class CustomAuthFilter extends AbstractGatewayFilterFactory<CustomAuthFil
 
     }
 
+    // Mono, Flux 중 하나를 반환해야 함 - Spring Webflux
     private Mono<Void> handleUnAuthorized(ServerWebExchange exchange) {
         ServerHttpResponse response = exchange.getResponse();
 

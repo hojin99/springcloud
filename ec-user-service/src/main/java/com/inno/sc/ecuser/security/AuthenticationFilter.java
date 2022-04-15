@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inno.sc.ecuser.dto.UserDto;
 import com.inno.sc.ecuser.service.UserService;
 import com.inno.sc.ecuser.vo.RequestLogin;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,15 +16,20 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
+// UsernamePasswordAuthenticationFilter의 기본 인증 url은 /login
+// username, password 파라메터가 있어야 함
 @Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
 
     private AuthenticationManager authenticationManager;
     private UserService userService;
@@ -64,6 +72,16 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         // 로그인 성공을 했을 때 처리
         String userName = ((User)authResult.getPrincipal()).getUsername();
         UserDto userDetails = userService.getUserDetailsByEmail(userName);
+
+        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(env.getProperty("token.secret")));
+        String token = Jwts.builder()
+                .setSubject(userDetails.getUserId())
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(env.getProperty("token.expiration_time"))))
+                .signWith(key)
+                .compact();
+
+        response.addHeader("token", token);
+        response.addHeader("userId", userDetails.getUserId());
 
     }
 }

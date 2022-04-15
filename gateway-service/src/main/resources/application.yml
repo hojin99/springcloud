@@ -67,22 +67,21 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/?(?<segment>.*), /$\{segment} # URL을 변경
-
-
-
+            - CustomAuthFilter
         - id: ec-catalog-service # eureka server에 등록된 spring.application.name
           uri: lb://EC-CATALOG-SERVICE # 포워딩할 uri : user-service를 load balancing (eureak 서버 내 이름 기반)
           predicates:
             - Path=/catalog-service/**  # 해당 패턴에 대해서
           filters:
             - RewritePath=/catalog-service/?(?<segment>.*), /$\{segment} # URL을 변경
+            - CustomAuthFilter
         - id: ec-order-service # eureka server에 등록된 spring.application.name
           uri: lb://EC-ORDER-SERVICE # 포워딩할 uri : user-service를 load balancing (eureak 서버 내 이름 기반)
           predicates:
             - Path=/order-service/**  # 해당 패턴에 대해서
           filters:
             - RewritePath=/order-service/?(?<segment>.*), /$\{segment} # URL을 변경
-
+            - CustomAuthFilter
 
 eureka:
   client:
