@@ -30,6 +30,12 @@ logging:
   level:
     com.inno.sc.ecuser : DEBUG
 
-token:
-  expiration_time: 86400000 # 60 * 60 * 24 * 1000 (1일)
-  secret: TEU2nXtXo9uENw4C8QprZEaxezKwVnGJ3cJ/0+bgxo8=
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
+
+#token:
+#  expiration_time: 86400000 # 60 * 60 * 24 * 1000 (1일)
+#  secret: TEU2nXtXo9uENw4C8QprZEaxezKwVnGJ3cJ/0+bgxo8=

@@ -3,6 +3,7 @@ package com.inno.sc.gateway.filter;
 import com.inno.sc.gateway.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,11 @@ import java.util.Objects;
 @Component
 public class CustomAuthFilter extends AbstractGatewayFilterFactory<CustomAuthFilter.Config> {
 
+    private final Environment env;
 
-    public CustomAuthFilter() {
+    public CustomAuthFilter(Environment env) {
         super(Config.class);
+        this.env = env;
     }
 
     public GatewayFilter apply(Config config) {
@@ -45,7 +48,7 @@ public class CustomAuthFilter extends AbstractGatewayFilterFactory<CustomAuthFil
                 log.info(jws);
 
                 try {
-                    Claims claims = JwtUtil.validateJwt(jws);
+                    Claims claims = JwtUtil.validateJwt(jws, env.getProperty("token.secret"));
                     log.info(claims.getSubject());
                 } catch(Exception ex) {
                     handleUnAuthorized(exchange);

@@ -62,6 +62,14 @@ spring:
         - id: ec-user-service # eureka server에 등록된 spring.application.name
           uri: lb://EC-USER-SERVICE # 포워딩할 uri : user-service를 load balancing (eureak 서버 내 이름 기반)
           predicates:
+            - Path=/user-service/actuator/**  # 해당 패턴에 대해서
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/?(?<segment>.*), /$\{segment} # URL을 변경
+        - id: ec-user-service # eureka server에 등록된 spring.application.name
+          uri: lb://EC-USER-SERVICE # 포워딩할 uri : user-service를 load balancing (eureak 서버 내 이름 기반)
+          predicates:
             - Path=/user-service/**  # 해당 패턴에 대해서
             - Method=GET
           filters:
@@ -90,3 +98,8 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_URL:http://127.0.0.1:8787/eureka} # Eureka 서버 주소
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace

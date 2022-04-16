@@ -32,7 +32,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/h2-console/**","/health_check","/welcome","/login","/users/**").permitAll()
+                .antMatchers("/h2-console/**","/health_check","/welcome","/login","/users/**","/actuator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(getAuthenticationFilter());
