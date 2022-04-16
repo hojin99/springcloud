@@ -2,6 +2,6 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: ec  # ec.yml 파일
+      name: config-service  # application.yml 파일
 #  profiles:
 #    active: prod

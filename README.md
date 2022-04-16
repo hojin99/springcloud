@@ -14,14 +14,15 @@
 * gateway-server - api gateway 역할을 하면서, 모든 요청을 로깅하고, 인증을 담당 (config-client, eureka-client, hystrix, feign-client)  
 포트 : 8030
 
-* user-service - 사용자 정보 서비스 (api-service, config-client, eureka-client, hystrix, feign-client)  
-포트 : random
+* ec-user-service - 사용자 정보 서비스  
+포트 : random  
 
-* statdata-service - 통계 정보 서비스 (api-service, config-client, eureka-client, hystrix, feign-client)  
-포트 : random
+* ec-order-service - 제품 주문 서비스  
+포트 : random  
 
-* mapdata-service - map 정보 서비스 (api-service, config-client, eureka-client, hystrix, feign-client)  
-포트 : random
+* ec-catalog-service - 제품 카타로그 서비스  
+포트 : random  
+
 
 ## 실행
 * 각 서비스 별 spring boot application 실행 방법으로 실행 (단, Config Server, Eureka Server 먼저 실행)   
@@ -34,6 +35,9 @@
     - 유레카 대시보드 UI 
     - http://localhost:8787/  
 
+* rabbitmq-server  
+    - rabbitmq 관리 UI   
+    - http://localhost:15672/  
 
 ## 참조
 eureka server/client : https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/  
