@@ -25,19 +25,34 @@
 
 
 ## 실행
-* 각 서비스 별 spring boot application 실행 방법으로 실행 (단, Config Server, Eureka Server 먼저 실행)   
+
+* 실행 순서
+    - eureka-server : 의존성 없음
+    - rabbitmq : 의존성 없음
+    - config-server : rabbitmq 필요
+    - 나머지는 순서 없음 
+    
+* eureka-server  
+    - spring boot app 실행 방법으로 실행 (아래)  
+    - 유레카 대시보드 UI 
+    - http://localhost:8787/  
+
+* rabbitmq (docker container in wsl)
+    - `docker-compose up -d` 
+    - rabbitmq 관리 UI   
+    - http://localhost:15672/  
+
+* config-server  
+    - spring boot app 실행 방법으로 실행 (아래)  
+    - config-server endpoints
+    - http://localhost:8888/actuator/** (예: http://localhost:8888/actuator/env)  
+
+* 각 서비스 별 spring boot application 실행 방법으로 실행   
     - Application 소스에서 실행(Intellij)  
     - Toolbar에서 실행(Intellij)  
     - mvn spring-boot:run  
     - java -jar jar파일  
-    
-* eureka-server  
-    - 유레카 대시보드 UI 
-    - http://localhost:8787/  
 
-* rabbitmq-server  
-    - rabbitmq 관리 UI   
-    - http://localhost:15672/  
 
 ## 참조
 eureka server/client : https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/  
