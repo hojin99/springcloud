@@ -15,7 +15,7 @@ spring:
         git:
           default-label: main # 기본 브랜치가 master가 아닐 경우 지정
           uri: https://github.com/hojin99/springcloud.git
-          searchPaths: config # git 저장소내 설정 파일을 검색할 경로
+          searchPaths: config-server/config # git 저장소내 설정 파일을 검색할 경로
 # private 저장소일 경우 필요
 #          username: user
 #          password: password
