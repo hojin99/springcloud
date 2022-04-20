@@ -3,7 +3,7 @@
 encrypt:
 #  key: TEU2nXtXo9uENw4C8QprZEaxezKwVnGJ3cJ/0+bgxo8= # 대칭키 방식의 암호화 때 사용
   key-store: # 비대칭키 방식의 암호화 때 사용
-    location: file:rabbitmq/keystore/apiEncryptionKey.jks
+    location: file:rabbitmq/keystore/apiEncryptionKey.jks # 상대 위치
     password: 1234abcd
     alias: apiEncryptionKey
 

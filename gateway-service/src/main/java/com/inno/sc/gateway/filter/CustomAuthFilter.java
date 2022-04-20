@@ -51,7 +51,7 @@ public class CustomAuthFilter extends AbstractGatewayFilterFactory<CustomAuthFil
                     Claims claims = JwtUtil.validateJwt(jws, env.getProperty("token.secret"));
                     log.info(claims.getSubject());
                 } catch(Exception ex) {
-                    handleUnAuthorized(exchange);
+                    return handleUnAuthorized(exchange);
                 }
             }
 

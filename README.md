@@ -3,15 +3,19 @@
 ## 환경
 
 * rabbitmq (run with docker container in wsl)  
+cloud bus를 위한 메세지 브로커, 각 노드간 메세지 브로커 역할  
 포트 : 5672(qmqp) , 15672(web)  
 
-* eureka-server - service 정보를 중앙에서 관리하며, client들에게 제공하는 역할  
+* eureka-server (discovery service)  
+service 정보를 중앙에서 관리하며, client들에게 제공하는 역할  
 포트 : 8787
 
-* config-server - configuration 정보를 다른 서버들에게 제공하는 역할 (중앙 관리)  
+* config-server  
+configuration 정보를 다른 서버들에게 제공하는 역할    
 포트 : 8888
 
-* gateway-server - api gateway 역할을 하면서, 모든 요청을 로깅하고, 인증을 담당 (config-client, eureka-client, hystrix, feign-client)  
+* gateway-server  
+api routing 기능을 하면서, 모든 요청을 로깅하고, 인증을 담당    
 포트 : 8030
 
 * ec-user-service - 사용자 정보 서비스  
@@ -27,20 +31,20 @@
 ## 실행
 
 * 실행 순서
-    - eureka-server : 의존성 없음
-    - rabbitmq : 의존성 없음
-    - config-server : rabbitmq 필요
-    - 나머지는 순서 없음 
-    
-* eureka-server  
-    - spring boot app 실행 방법으로 실행 (아래)  
-    - 유레카 대시보드 UI 
-    - http://localhost:8787/  
+    - rabbitmq : 의존성 없음  
+    - eureka-server : 의존성 없음  
+    - config-server : rabbitmq 필요  
+    - 나머지는 순서 없음  
 
 * rabbitmq (docker container in wsl)
     - `docker-compose up -d` 
     - rabbitmq 관리 UI   
     - http://localhost:15672/  
+    
+* eureka-server  
+    - spring boot app 실행 방법으로 실행 (아래)  
+    - 유레카 대시보드 UI 
+    - http://localhost:8787/  
 
 * config-server  
     - spring boot app 실행 방법으로 실행 (아래)  
