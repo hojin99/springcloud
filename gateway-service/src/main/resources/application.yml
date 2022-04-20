@@ -94,7 +94,7 @@ spring:
             - Path=/order-service/**  # 해당 패턴에 대해서
           filters:
             - RewritePath=/order-service/?(?<segment>.*), /$\{segment} # URL을 변경
-            - CustomAuthFilter
+#            - CustomAuthFilter
 
 eureka:
   client:
