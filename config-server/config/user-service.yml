@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+#    password: '{cipher}7b0bb659f240d6d43c817cb55d60e26f1aabee5e314d8770c8dbdb2fb6d4f06b'
+    password: '{cipher}AQC7vPzGyLzhpPzyktYU0X3mNFuF3N1wQgs4df1ATLhmFjWWLHMJJJ83z3+cRudnoEzbNiC4CopkAQk+hs/dT3D+bQFCFpFkT6WsqL4LH9cXPc6qgT02vDY8lcfWewOhZ0jQQwuJo0DgCrOk4a/kQ+3dRJN2YDxmh/kg0djRQaLXORLEg2ksIWCJ+dM69k4txXg3o2vicfCcirIuM8Pq+OfZIJzVHWnfmIoMsx+zYxVRMovL7HsuoGu/FVF+N1Q6zRG2krT+VDVdZeBnpwobdxnG1Uuj3RRV6afKU/s8qHDir8X51M7cO4wNzYidzkHRZNFXNI3B1Bghc8RyMCIxjOxZcHOTmqtU+qlNmRrT0UHVNwKa4tgvZ9r58hrNuN/NDgo='
+
+order_service:
+  url: http://ec-order-service/%s/orders

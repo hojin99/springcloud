@@ -1,0 +1,27 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    config:
+      server:
+        git:
+          default-label: main # 기본 브랜치가 master가 아닐 경우 지정
+          uri: https://github.com/hojin99/springcloud.git
+          searchPaths: config-server/config # git 저장소내 설정 파일을 검색할 경로
+# private 저장소일 경우 필요
+#          username: user
+#          password: password
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env, refresh, health, beans, busrefresh
