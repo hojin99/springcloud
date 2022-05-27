@@ -8,8 +8,8 @@ target/
 *.db
 
 ### kafka ###
-!kafka/*.sh
 kafka/
+!kafka/*.sh
 
 ### STS ###
 .apt_generated
