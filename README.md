@@ -6,6 +6,13 @@
 cloud bus를 위한 메세지 브로커, 각 노드간 메세지 브로커 역할  
 포트 : 5672(qmqp) , 15672(web)  
 
+* kafka (run in wsl)  
+대용량 메세지 브러커 역할
+포트 : 
+
+* postgresql (run with docker container in wsl)
+포트 : 8999
+
 * eureka-server (discovery service)  
 service 정보를 중앙에서 관리하며, client들에게 제공하는 역할  
 포트 : 8787

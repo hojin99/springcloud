@@ -46,6 +46,12 @@ public class UserServiceController {
         return statClient.hello();
     }
 
+    @GetMapping("/")
+    public String basic() {
+
+        return "ok";
+    }
+
 
 
 

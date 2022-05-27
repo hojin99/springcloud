@@ -34,6 +34,7 @@ greeting:
 logging:
   level:
     com.inno.sc.ecuser : DEBUG
+#    com.inno.sc.user.client: DEBUG
 
 management:
   endpoints:

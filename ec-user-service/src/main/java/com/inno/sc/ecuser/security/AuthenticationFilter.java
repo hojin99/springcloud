@@ -25,25 +25,38 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-// UsernamePasswordAuthenticationFilter의 기본 인증 url은 /login
-// username, password 파라메터가 있어야 함
+
+/**
+ * UsernamePasswordAuthenticationFilter의 기본 인증 url은 /login
+ * username, password 파라메터가 있어야 함
+ */
 @Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
 
     private AuthenticationManager authenticationManager;
     private UserService userService;
     private Environment env;
 
+    /**
+     * @param authenticationManager
+     * @param userService
+     * @param env
+     */
     public AuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, Environment env) {
         super.setAuthenticationManager(authenticationManager);
         this.userService = userService;
         this.env = env;
     }
 
-    // 인증 처리
+
+    /**
+     * @param request
+     * @param response
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) 
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
 
         try {
@@ -64,8 +77,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         }
     }
 
+
+    /**
+     * @param request
+     * @param response
+     * @param chain
+     * @param authResult
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, 
+    protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response, 
                                             FilterChain chain, 
                                             Authentication authResult) throws IOException, ServletException {

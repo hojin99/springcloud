@@ -35,7 +35,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**","/health_check","/welcome","/login","/users/**","/actuator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(getAuthenticationFilter());
+                .antMatcher("/users/**").addFilter(getAuthenticationFilter());
 
         http.headers().frameOptions().disable();
     }
