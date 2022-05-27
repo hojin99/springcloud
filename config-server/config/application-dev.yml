@@ -1,6 +1,0 @@
-token:
-  expiration_time: 86400000 # 60 * 60 * 24 * 1000 (1일)
-  secret: '{cipher}AQCDjQlUrlBB1FtxJLwC55d1p2LBCZdWWj1YnlWq7lWOKgGnw01b5NXYlHU0BfebKZdyWB0Pl4srgRJNADC0Qh+2SpgPEmWgCHsifN2GzHdl1XJHuleB9pWD0aEiKkzHiHTlO+pAyMFnJhszV5n445mcu8FmrfQGJQznloIv8utzdD0KceqXOERU6Q93fbya5RGCX3Pb1GqnJqJ0I08jmRyurWIJYCoYMm6nwKkW5g5Sk713iEdGrkwPmkMub6fPBElQzE/vFZDX1f2TQoJqZWbRolbhjKFe/fvX2Nn+FapsKeHo9KapuBh+4+B+gju0bfE0ZoSWhcTzcxQ8zTxjgGqip776opbsSpCuUQfaVS9ucybq9g2wcZ/r6gLY7dAePl5/2zxYC885gkMBKTALM+LsCVFqDv7R2B7eQBa9d2gXUw=='
-
-gateway:
-  ip: localhost
