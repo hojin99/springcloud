@@ -9,7 +9,7 @@ target/
 
 ### kafka ###
 kafka/
-!kafka/start*.sh
+!kafka/*.sh
 
 ### STS ###
 .apt_generated
