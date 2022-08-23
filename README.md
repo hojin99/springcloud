@@ -7,7 +7,7 @@ cloud bus를 위한 메세지 브로커, 각 노드간 메세지 브로커 역�
 포트 : 5672(qmqp) , 15672(web)  
 
 * kafka (run in wsl)  
-대용량 메세지 브러커 역할
+대용량 메세지 브러커 역할  
 포트 : 
 
 * postgresql (run with docker container in wsl)
@@ -58,12 +58,17 @@ api routing 기능을 하면서, 모든 요청을 로깅하고, 인증을 담당
     - config-server endpoints
     - http://localhost:8888/actuator/** (예: http://localhost:8888/actuator/env)  
 
+* kafka
+
+
+* postgresql
+
+
 * 각 서비스 별 spring boot application 실행 방법으로 실행   
     - Application 소스에서 실행(Intellij)  
     - Toolbar에서 실행(Intellij)  
     - mvn spring-boot:run  
     - java -jar jar파일  
-
 
 ## 참조
 eureka server/client : https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/  
