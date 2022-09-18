@@ -8,7 +8,10 @@ cloud bus를 위한 메세지 브로커, 각 노드간 메세지 브로커 역�
 
 * kafka (run in wsl)  
 대용량 메세지 브러커 역할  
-포트 : 
+* 
+kafka binary는 git에 저장 안함 (다운로드 후 압축 해제 필요, java 설치 필요)    
+https://www.apache.org/dyn/closer.cgi?path=/kafka/3.2.1/kafka_2.13-3.2.1.tgz  
+포트 : 9092(kafka), 2181(zookeeper)
 
 * postgresql (run with docker container in wsl)
 포트 : 8999
@@ -41,6 +44,8 @@ api routing 기능을 하면서, 모든 요청을 로깅하고, 인증을 담당
     - rabbitmq : 의존성 없음  
     - eureka-server : 의존성 없음  
     - config-server : rabbitmq 필요  
+    - postgresql : 의존성 없음
+    - kafka : 의존성 없음
     - 나머지는 순서 없음  
 
 * rabbitmq (docker container in wsl)
@@ -57,12 +62,13 @@ api routing 기능을 하면서, 모든 요청을 로깅하고, 인증을 담당
     - spring boot app 실행 방법으로 실행 (아래)  
     - config-server endpoints
     - http://localhost:8888/actuator/** (예: http://localhost:8888/actuator/env)  
-
-* kafka
-
+ 
+* kafka (run in wsl) 
+    - `./start-zookeeper.sh`  
+    - `./start-kafka.sh`  
 
 * postgresql
-
+  - `docker-compose up -d`
 
 * 각 서비스 별 spring boot application 실행 방법으로 실행   
     - Application 소스에서 실행(Intellij)  
